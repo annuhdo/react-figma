@@ -1,4 +1,5 @@
 import { BlendProps, Color } from '../types';
+import { transformBlurToEffect } from './transformBlurToEffect';
 import { transformShadowToEffect } from './transformShadowToEffect';
 
 export type CSSBlendMode =
@@ -19,20 +20,29 @@ export type CSSBlendMode =
     | 'color'
     | 'luminosity';
 
+export interface BlurProperties {
+    blurRadius?: number;
+    blurType?: 'LAYER_BLUR' | 'BACKGROUND_BLUR';
+}
+
 export interface ShadowProperties {
     shadowColor: Color;
     shadowOffset?: { width: number; height: number };
     shadowOpacity: number;
     shadowRadius?: number;
+    shadowSpread?: number;
+    shadowType?: 'DROP_SHADOW' | 'INNER_SHADOW';
 }
 
-export interface BlendStyleProperties extends ShadowProperties {
+export interface BlendStyleProperties extends ShadowProperties, BlurProperties {
     opacity: number;
     blendMode: CSSBlendMode;
     shadows?: ShadowProperties[];
+    blurs?: BlurProperties[];
+    effectStyleId?: string;
 }
 
-const transofrmBlendMode = (cssBlendMode: CSSBlendMode): BlendMode => {
+const transformBlendMode = (cssBlendMode: CSSBlendMode): BlendMode => {
     /**
      * TODO: Missing modes - PASS_THROUGH, LINEAR_BURN, LINEAR_DODGE
      */
@@ -74,7 +84,9 @@ const transofrmBlendMode = (cssBlendMode: CSSBlendMode): BlendMode => {
     }
 };
 
-export const transformBlendProperties = (styles?: Partial<BlendStyleProperties>): BlendProps => {
+export const transformBlendProperties = (
+    styles?: Partial<BlendStyleProperties> & { effectStyleId?: string }
+): BlendProps => {
     if (!styles) {
         return {};
     }
@@ -85,12 +97,22 @@ export const transformBlendProperties = (styles?: Partial<BlendStyleProperties>)
         blendProps.opacity = styles.opacity;
     }
     if (styles.blendMode) {
-        blendProps.blendMode = transofrmBlendMode(styles.blendMode);
+        blendProps.blendMode = transformBlendMode(styles.blendMode);
     }
 
     if (styles.shadowColor || styles.shadows) {
-        blendProps.effects = transformShadowToEffect(styles);
+        blendProps.effects = [
+            ...(blendProps.effects != null ? blendProps.effects : []),
+            ...transformShadowToEffect(styles)
+        ];
     }
 
-    return blendProps;
+    if (styles.blurRadius || styles.blurs) {
+        blendProps.effects = [
+            ...(blendProps.effects != null ? blendProps.effects : []),
+            ...transformBlurToEffect(styles)
+        ];
+    }
+
+    return { ...blendProps, ...((styles.effectStyleId && { effectStyleId: styles.effectStyleId }) || {}) };
 };
