@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useTextStyle useTextStyle correctly applied 1`] = `
+exports[`useStyleByKey useTextStyle correctly applied 1`] = `
 ChildrenMixinStub {
   "children": Array [
     ExportMixinStub {
@@ -13,11 +13,37 @@ ChildrenMixinStub {
       "backgrounds": Array [],
       "children": Array [
         ExportMixinStub {
-          "_characters": "",
-          "_fontName": Object {
-            "family": "Roboto",
-            "style": "Bold",
+          "blendMode": "NORMAL",
+          "constraints": Object {
+            "horizontal": "MIN",
+            "vertical": "MIN",
           },
+          "cornerRadius": 0,
+          "cornerSmoothing": 0,
+          "effects": Array [],
+          "exportSettings": Array [],
+          "fillStyleId": "testStyleId",
+          "fills": Array [],
+          "id": "1:2",
+          "isMask": false,
+          "layoutAlign": "INHERIT",
+          "layoutGrow": 0,
+          "locked": false,
+          "opacity": 1,
+          "parent": [Circular],
+          "pluginData": Object {
+            "isReactFigmaNode": "true",
+            "reactStyle": "{\\"fillStyleId\\":\\"testStyleId\\"}",
+          },
+          "strokeAlign": "INSIDE",
+          "strokeCap": "NONE",
+          "strokeWeight": 0,
+          "strokes": Array [],
+          "type": "RECTANGLE",
+          "visible": true,
+        },
+        ExportMixinStub {
+          "_characters": "",
           "_textAutoResize": "WIDTH_AND_HEIGHT",
           "autoRename": false,
           "blendMode": "NORMAL",
@@ -27,7 +53,6 @@ ChildrenMixinStub {
           },
           "effects": Array [],
           "exportSettings": Array [],
-          "fillStyleId": "S:test,",
           "fills": Array [
             Object {
               "color": Object {
@@ -39,9 +64,9 @@ ChildrenMixinStub {
               "type": "SOLID",
             },
           ],
-          "fontSize": 24,
+          "fontSize": 12,
           "hyperlink": null,
-          "id": "1:2",
+          "id": "1:3",
           "isMask": false,
           "layoutAlign": "INHERIT",
           "layoutGrow": 0,
@@ -59,7 +84,7 @@ ChildrenMixinStub {
           "parent": [Circular],
           "pluginData": Object {
             "isReactFigmaNode": "true",
-            "reactStyle": "{\\"fontFamily\\":\\"Roboto\\",\\"fontWeight\\":\\"bold\\",\\"fontSize\\":24,\\"color\\":\\"#000000\\",\\"textStyleId\\":\\"S:test,\\",\\"fillStyleId\\":\\"S:test,\\"}",
+            "reactStyle": "{\\"textStyleId\\":\\"testStyleId\\"}",
           },
           "strokeAlign": "INSIDE",
           "strokeCap": "NONE",
@@ -69,7 +94,7 @@ ChildrenMixinStub {
           "textAlignVertical": "TOP",
           "textCase": "ORIGINAL",
           "textDecoration": "NONE",
-          "textStyleId": "S:test,",
+          "textStyleId": "testStyleId",
           "type": "TEXT",
           "visible": true,
         },
@@ -87,20 +112,4 @@ ChildrenMixinStub {
   "id": "0:0",
   "type": "DOCUMENT",
 }
-`;
-
-exports[`useTextStyle useTextStyle correctly applied 2`] = `
-Array [
-  TextStyleStub {
-    "fontName": Object {
-      "family": "Roboto",
-      "style": "Bold",
-    },
-    "fontSize": 24,
-    "id": "S:test,",
-    "name": "root/background",
-    "remote": false,
-    "type": "TEXT",
-  },
-]
 `;
